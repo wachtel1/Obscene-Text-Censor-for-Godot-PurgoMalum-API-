@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Demo.gd" type="Script" id=1]
+
+[node name="Demo" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 205.769
+margin_top = 171.951
+margin_right = 805.769
+margin_bottom = 261.951
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 24.0
+text = "Enter some text here, b1tch!"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="ReplaceText" type="Button" parent="VBoxContainer"]
+margin_top = 28.0
+margin_right = 600.0
+margin_bottom = 48.0
+text = "Replace Text"
+
+[node name="CheckText" type="Button" parent="VBoxContainer"]
+margin_top = 52.0
+margin_right = 600.0
+margin_bottom = 72.0
+text = "Check Text"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Result" type="Label" parent="VBoxContainer"]
+margin_top = 76.0
+margin_right = 600.0
+margin_bottom = 90.0
