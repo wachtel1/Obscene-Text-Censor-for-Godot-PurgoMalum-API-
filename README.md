@@ -1,4 +1,8 @@
-# Obscene-Text-Censor-for-Godot
-Godot addon to change the obscene text to "*". Usefull for handling player input in the multiplayer environment.
+# Obscene Text Censor for Godot using PurgoMalum API
 
-Just run the detect_obscene_text( text:string ) and the addon will do the rest.
+This is a demo project on how one can handle the obscene text from user input using the PurgoMalum API.
+To use:
+1. Go to https://rapidapi.com/community/api/purgomalum-1/
+2. Sign up and receive the api key.
+3. Replace the key in the Demo.gd.
+4. Enjoy.
