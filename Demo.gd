@@ -25,39 +25,48 @@ export var fill_char = ""
 var url = ""
 var headers =  ["x-rapidapi-host: " + host, "x-rapidapi-key: " + key]
 
-onready var text_input = $VBoxContainer/LineEdit
-onready var replace_button = $VBoxContainer/ReplaceText
-onready var check_button = $VBoxContainer/CheckText
-onready var result = $VBoxContainer/Result
+onready var TextInput = $VBoxContainer/LineEdit
+onready var ReplaceButton = $VBoxContainer/ReplaceText
+onready var CheckButton = $VBoxContainer/CheckText
+onready var Result = $VBoxContainer/Result
 var text = ""
-var result_text = ""
 
 var http_request = HTTPRequest.new()
+const error_scene = preload("res://ErrorMessage.tscn")
 
 func _ready():
-	#Prepare the scene and add the HTTPRequest node
-	replace_button.connect("pressed", self, "replace_text")
-	check_button.connect("pressed", self, "check_text")
+	ReplaceButton.connect("pressed", self, "replace_text")
+	CheckButton.connect("pressed", self, "check_text")
 	add_child(http_request)
 	http_request.connect("request_completed", self, "_http_request_completed")
 
 func replace_text():
-	text = text_input.text.percent_encode()
+	http_request.cancel_request()
+	text = TextInput.text.percent_encode()
 	url = start_url + "json?text=" + text + "&add=" + add + "&fill_text=" + fill_text + "&fill_char=" + fill_char
-	var error = http_request.request(url, headers)
-	if error != OK:
-		push_error("An error occurred")
+	_create_request(url, headers)
 
 func check_text():
-	text = text_input.text.percent_encode()
+	http_request.cancel_request()
+	text = TextInput.text.percent_encode()
 	url = start_url + "/containsprofanity?text=" + text
-	var error = http_request.request(url, headers)
-	if error != OK:
-		push_error("An error occurred")
+	_create_request(url, headers)
 
-func _http_request_completed(_result, _response_code, _headers, body):
+func _create_request(request_url, request_headers):
+	var error = http_request.request(request_url, request_headers)
+	if error != OK:
+		var error_message = error_scene.instance()
+		error_message.position = Vector2(500, 285)
+		add_child(error_message)
+
+func _http_request_completed(result, _response_code, _headers, body):
+	if result != 0:
+		var error_message = error_scene.instance()
+		error_message.position = Vector2(500, 285)
+		add_child(error_message)
+		return
 	var json = JSON.parse(body.get_string_from_utf8())
 	if json.result is bool:
-		result.set_text(str(json.result))
+		Result.set_text(str(json.result))
 	else:
-		result.set_text(json.result.get("result"))
+		Result.set_text(json.result.get("result"))
