@@ -6,3 +6,5 @@ To use:
 2. Sign up and receive the api key.
 3. Replace the key in the Demo.gd.
 4. Enjoy.
+
+Explanation: https://youtu.be/ncPZnuBuWJA
